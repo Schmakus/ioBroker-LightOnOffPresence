@@ -1,4 +1,4 @@
-const version = `v 0.1`
+const version = `v 0.01 ALPHA`
 const scriptname = `LightOnOffPresence Script`
 const constri = `Schmakus`
 
@@ -98,17 +98,16 @@ for (const i in arrGroups) {
     } else {
         arrGroups[i].timerMotion = (arrGroups[i].timerMotion * 1000);   //Sekunden in Millisekunden
         arrGroups[i].timerSwitch = (arrGroups[i].timerSwitch * 1000);   //Sekunden in Millisekunden
-        arrGroups[i].keystrokeCounter = 1;                              //Tastendruck-Zähler auf 1 setzen
+        arrGroups[i].keystrokeCounter = 1;                              //Tastendruck-Zähler Initial auf 1 setzen
     };
 };
 
 for (const i in arrLights) {
     if (getObject(arrLights[i].pathControl)) {
         let objType = getObject(arrLights[i].pathControl);
-        arrLights[i].state = objType.common.type;
+        arrLights[i].stateType = objType.common.type;
         arrLights[i].lastState = null;
     }
-    if (extLogging) console.warn(arrLights[i]);
 };
 
 //******* Datenpunkte für Zentralsteuerung */
@@ -148,13 +147,15 @@ DpCount++;
 let numStates = States.length;
 
 States.forEach(function (state) {
-    createState(state.id, state.initial, state.forceCreation, state.common, function () {
+    createStateAsync(state.id, state.initial, state.forceCreation, state.common, function () {
         numStates--;
         if (numStates === 0) {
             if (logging) console.log(`CreateStates fertig!`);
+            for (const i in arrGroups) { //Channels erstellen
+                let x = arrGroups[i].description.split(' ').join('_');
+                setObjectAsync(praefix + "." + x, { type: 'channel', common: { name: arrGroups[i].description }, native: {} });
+            };
             createTrigger(arrGroups, arrLights, arrSchedules);
-
-            if (extLogging) console.warn(arrGroups);
         };
     });
 });
@@ -268,9 +269,9 @@ function createTrigger(arrGroups, lights, schedules) {
         //--------------------------------------//
         //      Trigger Licht Bewegungsmelder   //
         //--------------------------------------//
-        if(objTemp.pathBWM) {
-            on({ id: objTemp.pathBWM, change: "any", ack: true }, async function (obj) {  // BWM
-
+        if(objTemp.pathBWM) {            
+            on({ id: objTemp.pathBWM, change: "any", ack: false}, async function (obj) {  // BWM
+                console.warn(obj);
                 //Wert des Triggers
                 let value = obj.state.val;
 
@@ -318,10 +319,10 @@ function createTrigger(arrGroups, lights, schedules) {
         //-------------------------------------//
 
         if(objTemp.pathEmergency) {
-            on({ id: objTemp.pathOn, change: "ne" }, function async(obj) {
+            on({ id: objTemp.pathEmergency, change: "ne" }, function async(obj) {
                 
                 var value = obj.state.val;
-                var oldValue = obj.oldState.val;
+                
                 //Wenn Wert = True
                 if (value) {
                     if (logging) console.log(`Notlicht wurde betätigt. // Objekt: ${obj.id}`)
@@ -371,7 +372,7 @@ async function setLight(objTemp, control, transitionTime, lights, schedules) {
                     setStates(light.pathColortemp, light.colorTemp, 'Farbtemperatur');      //Wenn Pfad zu ColorTemp vorhanden und gültig ist
                     setStates(light.pathColor, light.color, 'Farbe');                       //Wenn Pfad zu Color vorhanden und gültig ist 
 
-                    if (light.state = 'number') {
+                    if (light.stateType = 'number') {
                         setStates(light.pathControl, light.defaultLevel, 'Licht Ein');      //Wenn Pfad zu Brightness vorhanden und gültig ist
                         if (extLogging) console.log(`Licht wird geschaltet: ${light.name}, (${light.pathControl}) // DefaultWert: ${objTemp.defaultLevel}`);
                     }else{
@@ -385,7 +386,7 @@ async function setLight(objTemp, control, transitionTime, lights, schedules) {
                 // Schleife durch die einzelnen Lampen
                 for (const i in objTemp.lights) {
                     let light = lights[objTemp.lights[i]];
-                    if (light.state = 'number') {
+                    if (light.stateType = 'number') {
                         setStates(light.pathControl, 0, 'Licht Aus');       //Wenn Pfad zu Brightness vorhanden und gültig ist
                         if (extLogging) console.log(`Licht wird ausgeschaltet: ${light.name}, (${light.pathControl}) // Wert: 0`);
                     }else{
@@ -407,7 +408,7 @@ async function setLight(objTemp, control, transitionTime, lights, schedules) {
                             setStates(light.pathTransistion, transitionTime, 'Transition Time');    //Wenn Pfad zu Transsition Time vorhanden und gültig ist
                             setStates(light.pathColortemp, light.colorTemp, 'Farbtemperatur');      //Wenn Pfad zu ColorTemp vorhanden und gültig ist
                             setStates(light.pathColor, light.color, 'Farbe');                       //Wenn Pfad zu Color vorhanden und gültig ist
-                            if (light.state = 'number') {
+                            if (light.stateType = 'number') {
                                 setStates(light.pathControl, sched.brightness, 'Licht Ein');        //Wenn Pfad zu Brightness vorhanden und gültig ist
                             }else{
                                 setStates(light.pathControl, true, 'Licht Ein');                    //Wenn Pfad zu State vorhanden und gültig ist
@@ -426,29 +427,30 @@ async function setLight(objTemp, control, transitionTime, lights, schedules) {
                 // Schleife durch alle Lampen
                 for (const i in lights) {
                     //Wenn Emergency größer 0, dann wird Lampe geschaltet
-                    if (lights.emergency >= 1) {
-                        lights[i].oldState = await getState(lights[i].pathControl);
-                        if (extLogging) console.log(`Notlicht: ${lights[i]}`);
-                        if (lights[i].state = 'number') {
+                    if (lights[i].emergency >= 1) {
+                        lights[i].oldState = await getState(lights[i].pathControl).val;
+                        if (extLogging) console.log(`Notlicht Old State: ${lights[i].oldState}`);
+                        if (lights[i].stateType = 'number') {
                             setStates(lights[i].pathControl, lights[i].emergency, 'Notlicht Ein');      //Wenn Pfad zu Brightness vorhanden und gültig ist
-                            if (extLogging) console.log(`Notlicht wird geschaltet: ${lights[i].name}, (${lights[i].pathControl}) // Wert: ${lights[i].emergency}`);
                         }else{
                             setStates(lights[i].pathControl, true, 'Notlicht Ein');                    //Wenn Pfad zu State vorhanden und gültig ist
-                            if (extLogging) console.log(`Licht wird geschaltet: ${lights[i].name}, (${lights[i].pathControl}) // Wert: true`);
                         };     
                     }                                   
                 };
+                //Datenpunkt bestätigen
+                setStateAsync(praefix + '.EmergencyLight', true, true);
                 break;
             
             case "emergencyOff": 
                 // Schleife durch alle Lampen
                 for (const i in lights) {
                     //Wenn Emergency größer 0, dann wird Lampe in den Ursprung vor dem Notlicht gesetzt
-                    if (lights[i].emergency >= 1) {
+                    if (lights[i].emergency >= 1 && lights[i].oldState != null) {
                         setStates(lights[i].pathControl, lights[i].oldState, 'Notlicht Aus');      //Wenn Pfad zu Brightness vorhanden und gültig ist
-                        if (extLogging) console.log(`Notlicht wird ausgeschaltet: ${lights[i].name}, (${lights[i].pathControl}) // Wert: ${lights[i].oldState}`);
                     }                                   
                 };
+                //Datenpunkt bestätigen
+                setStateAsync(praefix + '.EmergencyLight', false, true);
                 break;
             
             default: 
@@ -460,7 +462,7 @@ async function setLight(objTemp, control, transitionTime, lights, schedules) {
     else{
         for (const i in objTemp.lights) {
             let light = lights[objTemp.lights[i]];
-            if (light.state = 'number') {
+            if (light.stateType = 'number') {
                 setStates(light.pathControl, control, 'Dimmen');   //Wenn Pfad zu Brightness vorhanden und gültig ist
                 if (extLogging) console.log(`Licht wird gedimmt: ${light.name}, (${light.pathControl}) // Wert: ${control}`);
             }
@@ -485,7 +487,7 @@ function setStates(path, value, name){
      if (getObject(path)) {
         let oldval = getState(path).val;
         if(oldval != value){
-            setState(path, value,);
+            setState(path, value);
             if(extLogging) console.log(`${name}: Wert ${value} an Object ${path} gesetzt`);
         }else {
             if(extLogging) console.log(`${name}: Wert ${value} an Object ${path} nicht gesetzt. Wert schon vorhanden!`);

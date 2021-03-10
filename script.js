@@ -580,7 +580,7 @@ async function createTrigger(arrGroups, lights) {
                     }
                     else{ // Wenn kein BWM mehr auf true steht
                         objTemp.Timeout = setTimeout(async () => {
-                            //Licht ein nach Zeitplan
+                            //Licht aus
                             for (const n in objTemp.lights) {
                                 let light = lights[objTemp.lights[n]];
                                 light.setLightOff(objTemp);

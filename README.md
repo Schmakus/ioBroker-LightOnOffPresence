@@ -7,7 +7,7 @@
 Dieses Script ermöglicht es, eure Lampen über beliebig viele Bewegungsmelder (BWM, beliebig viele Taster und über vorhandene Datenpunkte zu Schalten und zu Dimmen.
 
 ## Information
-Das Script ist aktuell auf Homematic Taster und x-beliebige BWM ausgelegt und getestet. Weitere Auslöser und Funktionen sind weiter unten beschrieben.
+Das Script ist aktuell auf Homematic Taster und x-beliebige BWM ausgelegt und getestet.Es befindet sich noch im Beta Status und kann fehler enthalten. Bei Fehlfunktionen einfach ein Issue aufmachen.
 
 ## Inhalt
 <!-- TABLE OF CONTENTS -->

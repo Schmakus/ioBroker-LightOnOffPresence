@@ -67,7 +67,7 @@ Das Script ist aktuell auf Homematic Taster und x-beliebige BWM ausgelegt und ge
 
 ## Script-Updates einspielen
 * Das Script ist so aufgebaut, dass Updates keinen Einfluss auf eure Geräteliste haben (Zumindest nicht bei kleinen Updates ;-)). Ihr müsst eure Geräte nur einmal anlegen und das wars dann auch schon. Die folgende Zeile gibt euch einen Hinweis darauf, ab wo ihr das Script bei einem Update kopieren und wieder einfügen müsst. <br>
-  ![Ab_hier_nichts_mehr_aendern.png](/admin/Ab_hier_nichts_mehr_aendern.png  | height=100)
+  ![Ab_hier_nichts_mehr_aendern.png](/admin/Ab_hier_nichts_mehr_aendern.png  | width=150)
  <br>
 
 <!-- ANLEITUNG -->

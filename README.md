@@ -7,21 +7,27 @@
 Dieses Script ermöglicht es, eure Lampen über beliebig viele Bewegungsmelder (BWM, beliebig viele Taster und über vorhandene Datenpunkte zu Schalten und zu Dimmen.
 
 ## Information
-Das Script ist aktuell auf Homematic Taster und x-beliebige BWM ausgelegt und getestet. Weitere Auslöser und Funktionen sind weiter unten beschrieben.
+Das Script ist aktuell auf Homematic Taster und x-beliebige BWM ausgelegt und getestet.Es befindet sich noch im Beta Status und kann fehler enthalten. Bei Fehlfunktionen einfach ein Issue aufmachen.
 
 ## Inhalt
 <!-- TABLE OF CONTENTS -->
-<details open="open">
   <summary>Inhalt</summary>
   <ol>
     <li><a href="#features">Features</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
+    <li>
+      <a href="#anleitung">Anleitung</a>
+       <ul>
+        <li><a href="#Script-erstellen">Script anlegen/installieren</a></li>
+         <li><a href="#Allgmeines">Allgemeine Werte</a></li>
+        <li><a href="#Gruppe-definieren">Gruppen anlegen</a></li>
+        <li><a href="#Lampen-definieren">Lampen anlegen</a></li>
+        <li><a href="#Zeitplaene-definieren">Zeitpläne anlegen</a></li>
+      </ul>
+    </li>
+    <li><a href="#changelog">Changelog</a></li>
     <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgements">Acknowledgements</a></li>
   </ol>
-</details>
+
 
 
 
@@ -60,55 +66,77 @@ Das Script ist aktuell auf Homematic Taster und x-beliebige BWM ausgelegt und ge
 
 ## Script-Updates einspielen
 * Das Script ist so aufgebaut, dass Updates keinen Einfluss auf eure Geräteliste haben (Zumindest nicht bei kleinen Updates ;-)). Ihr müsst eure Geräte nur einmal anlegen und das wars dann auch schon. Die folgende Zeile gibt euch einen Hinweis darauf, ab wo ihr das Script bei einem Update kopieren und wieder einfügen müsst. <br>
-  ![update_Zeile.png](/admin/update_Zeile.png)
+  ![Ab_hier_nichts_mehr_aendern.png](/admin/Ab_hier_nichts_mehr_aendern.png)
  <br>
 
-
+<!-- ANLEITUNG -->
 # Anleitung
+
+<!-- INSTALLATION -->
 ## Script erstellen
 Ein neues JS Script in iobroker erstellen und das Script aus "script-bwm-script.js" kopieren und einfügen. <br>
 
 ![erstellung_1.png](/admin/erstellung_1.png) <br>
 ![erstellung_2.png](/admin/erstellung_2.png) <br>
 
-## Geräte anlegen
+<!-- DEFAULT -->
+### Allgmeines
+Allgemein gültige Wete für das gesamte Script
 
-### Schaltaktor hinzufügen
-1. Das Anlegen eines Schaltaktors ist sehr einfach. man benötigt nur den Pfad zum Schalten und einen Timer, wie lange die Lampe eingeschaltet bleiben soll. Für jede neue Lampe die erste **Zahl forlaufend** erhöhen!<br>
+  ![Allgemeine_Werte_definieren.png](/admin/Allgemeine_Werte_definieren.png)
 
-    ![arrLights.png](/admin/arrLights.png)
+* **defaultTransition**: TrasitionTime (sollte aufgrund des Dimmens nicht kleiner als **0.8** sein
+* **DimIntervall**: Schritte fürs dimmen (bei Level von 0-100 sind 10er Schritte ideal)
+* **luxThreshold**: Helligkeits-Wert der Lichtsensoren, ab wann das Licht geschaltet werden soll
+* **statesPath**: Ort, wo die Datenpunkte agelegt werden sollen
+* **logging**: Einfaches Logging
+* **extLogging**: Erweitertes Logging
 
-- **path**: Pfad zum Switch, der den Aktor schaltet
-- **timer**: Einschaltdauer des Aktors in Sekunden
 
-### Lichtsensor hinzufügen
-1. Als nächstes kann man optional einen oder mehrere Lichtsensoren integrieren. Für jeden neuen Lichtsensor die erste **Zahl forlaufend** erhöhen! Wenn kein Lichtsensor vorhanden ist, einfach das vorhandene Objekt auskommentieren mit **//**<br>
+<!-- GRUPPEN -->
+### Gruppe definieren
+Das Anlegen einer Gruppe ist sehr einfach.
 
-    ![arrSensors.png](/admin/arrSensors.png) <br>
-  Sensor vorhanden
+* Man benötigt nur die Pfade der Taster, BMWs und Lichtsensor.
+* Definieren der Timer und Sperren.
+* Zuordnen aller Lampen über die Lampennummer (nächster Punkt: Lampen definieren)
+* In allen eckigen Klammern können mehrere Datenpunkte oder Werte definiert werden. Wichtig hierbei ist die Trennung durch ein Komma
+* Alle Werte sind in folgendem Screenshot beschrieben:
 
-    ![arrSensors_auskommentiert.png](/admin/arrSensors_auskommentiert.png) <br>
-  Sensor auskommentiert
+    ![Gruppen_definieren.png](/admin/Gruppen_definieren.png)
 
-- **path**: Pfad zum Helligkeitswert den der Lichtsensor ausgibt
-- **value**: Schwellwert der unterschritten werden muss, damit das Licht eingeschaltet wird
+<!-- LAMPEN -->
+### Lampen definieren
+2. Für jede Lampe die erste **Zahl forlaufend** erhöhen! (Es können natürlich auch Lampengruppen wie z.B. vom Deconz Adapter verwendet werden werden)
+* Alle Werte sind in folgendem Screenshot beschrieben:
 
-### Bewegungsmelder hinzufügen und alles verbinden
-1. Für jeden Bewegungsmelder muss ein eigenes Objekt angelegt werden. Keine Angst, hört sich kompliziert an, ist aber kinderleicht. Dazu einfach die erste Zeile kopieren oder diese hier nehmen '{ bwm: 'hier den Pfad zum DP "motion" einfuegen', lights: [], sensors: [] },' (ohne '')<br>
+    ![Lampen_definieren.png](/admin/Lampen_definieren.png) <br>
+ 
 
-    ![arrDevices.png](/admin/arrDevices.png)
+<!-- SCHEDULES -->
+### Zeitplaene definieren
+3. Es können beliebig viele Zeitpläne erstellt werden. Für jeden Zeitplan die erste **Zahl forlaufend** erhöhen!
+**Hinweis** Wenn mehrere Zeitpläne einer Lampe zugeordnet werden, sollten sich die Zeiten nicht überschneiden! Dies führt zur Fehlfunktion des Scripts!
 
-- **bwm**: Pfad zum Datenpunkt des Bewegungsmelders, der den **Motion Wert** zurückgibt (bspw occupancy)
-- **lights**: in die eckigen Klammern die im ersten Schritt angelegten Schaltaktoren eingeben (nur die Zahlen der Aktoren, die vom jeweiligen Bewegungsmelder auch geschaltet werden sollen)
-- **sensors**: in die eckigen Klammern die im zweiten Schritt angelegten Lichtsensoren eingeben (nur die Zahlen der Lichtsensoren, die vom jeweiligen Bewegungsmelder auch beachtet werden sollen). Sollte kein Lichtsensor vorhanden sein, einfach die Klammern leerlassen.
+* Für jeden Zeitplan wird ein automatischer Schedule angelegt, welcher zur Startzeit die Werte **brighness** (nur wenn Licht an ist), **colorTemp** und **color** ändert. 
+
+    ![Zeitpläne_definieren.png](/admin/Zeitpläne_definieren.png)
+
+- **from**: Startzeit (wird ebenfalls für den automatischen Scheduler verwendet)
+- **to**: Endzeit
+- **days**: 1: Mo // 1-2: Mo-Di // 2-3: Di-Mi // 1-4: Mo // 1-7: Mo-So // usw.
+- **brighness**: Helligkeit der Lampe (Sofern der Datenpunkt **pathControll** der Gruppe des Typs **number** entspricht)
+- **colorTemp**: Farbtemperatur, sofern in der Gruppe ein Datenpunkt definiert wurde
+- **color**: Farbe, sofern in der Gruppe ein Datenpunkt definiert wurde
+- **state**: true/false = Ein/Aus (Sofern der Datenpunkt **pathControll** der Gruppe des Typs **boolean** entspricht)
+- **name**: Freier Text zur einfacheren Unterscheidung. Keine Funktion innerhalb des Scripts, nur beim logging
 
 Das wars dann auch schon. Nur noch speichern und das Script starten
 
 Viel Spaß dabei 
 
 
-
-
+<!-- CHANGELOG -->
 ## Changelog
 
 ### 0.1.0 (2021-03-16)
@@ -124,7 +152,7 @@ Viel Spaß dabei
 ### 0.0.1 (2020-12-15)
 * (schmakus) initial commit
 
-
+<!-- LICENSE -->
 # License
 MIT License
 

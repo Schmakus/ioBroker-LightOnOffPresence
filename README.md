@@ -30,19 +30,36 @@ Das Script ist aktuell auf Homematic Taster und x-beliebige BWM ausgelegt und ge
 ### Licht schalten per Taster
 * Licht ein und aus per Taster, welcher ein "true" liefert (Aktuell getestet mit Homematic IP)
 * Individuell für jede Gruppe kann bei Licht ein gewählt werden, ob die Helligkeit auf einen Standard-Wert oder ob die Helligkeit nach Zeitplan-Definition gesetz wird.
-* Individuell für jede Gruppe kann festgelegt werden, ob ein vorhandener BWM beim Schalten mit Taster außer Kraft gesetzt werden kann (Putzlicht)
-* Individuell für jede Gruppe kann festgelegt werden, ob eine "Sicherheitsabschaltung" nach Zeit X erfolgen soll
+* Individuell für jede Gruppe kann festgelegt werden, ob ein vorhandener BWM beim Schalten mit Taster außer Kraft gesetzt wird (Putzlicht)
+* Individuell für jede Gruppe kann festgelegt werden, ob eine "Sicherheitsabschaltung" nach Zeit X erfolgen soll (Standard 3600s)
+* Wenn eine Sicherheitsabschaltung festgelegt wurde, dann wird dies bei Bewegung immer zurückgesetzt
 
 ### Licht schalten per BWM
-* Das Licht wird bei Bewegung eingeschalten. Dabei spielt es keine Rolle, welcher BWM der Gruppe ausgelöst hat
-* Das Licht wird nach Zeit X (Individuell pro Gruppe einstellbar) ausgeschalten, wenn alle BWM auf "false" sind
+* Das Licht wird bei Bewegung eingeschaltet. Dabei spielt es keine Rolle, welcher BWM der Gruppe ausgelöst hat
+* Das Licht wird nach Zeit X (Individuell pro Gruppe einstellbar) ausgeschaltet, wenn alle BWM auf "false" sind
 * Der timeout beginnt erst dann zu laufen, wenn alle BWM den Wert "false" stehen.
+* Bei Bewegung wird das Licht in Abhängigkeit des Zeitplans geschaltet. (z.B.: Helligkeit)
+* Bei Bewegung wird das Licht in Abhängikeit des Lux-Wertes geschaltet (sofern vorhanden)
 
 *Hinweis*: Die Einschaltdauer sollte nicht nur wenige Sekunden betragen, da einige Bewegungsmelder einen cooldown haben, bevor sie wieder Bewegungen erkennen und melden. Da führt dazu, dass eventuell Lampen bei zu kurzer Einschaltdauer ausschalten, obwohl man noch im Raum ist! <br>
-* Wird ein Lichtsensor verwendet, kann man ihn pro Gruppe zuordnen.
+
+### Licht dimmen per Taster
+* Das Licht kann hoch- und runtergedimmt werden. Dies erfolgt aktuell nur durch ein "true" welches durch das vorgegebene Intervall eines Homematic Tasters gesetzt wird
+* Gedimmt werden kann nur, wenn vorher das Licht eingeschaltet wurde (per Taster oder BWM, wobei ein BWM die Helligkeit wieder nach Zeitplan setzen würde)
+
+### Notlicht
+* Es gibt einen gemeinsamen Datenpunkt "Notlicht". (z.B. in Verbindung mit Rauchmeldern oder Sonstiges)
+* Über diesen Datenpunkt werden alle zugeordneten Lampen auf eine fest eingestellte Helligkeit oder einfach nur ein geschaltet.
+* Die Notlichtfunktion merkt sich zuvor den aktuellen Status der Lampe. Bei deaktivieren des Notlichts, werden die Lampen auf den zuvor eingestellten Wert gesetzt.
+
+### Datenpunkte
+* Alle Lampen können zentral gesteuert werden (Default-Werte oder nach Zeitplan)
+* Alle Lampen einer Gruppe können gesteuet werden (Default-Werte oder nach Zeitplan)
+* Der Lampenstatus jeder Gruppe wird per Datenpunkt angezeigt
+* Der Status jeder Lampe wird per Datenpunkt angezeigt
 
 ## Script-Updates einspielen
-- Das Script ist so aufgebaut, dass Updates keinen Einfluss auf eure Geräteliste haben. Ihr müsst eure Geräte nur einmal anlegen und das wars dann auch schon. Die folgende Zeile gibt euch einen Hinweis darauf, ab wo ihr das Script bei einem Update kopieren und wieder einfügen müsst. <br>
+* Das Script ist so aufgebaut, dass Updates keinen Einfluss auf eure Geräteliste haben (Zumindest nicht bei kleinen Updates ;-)). Ihr müsst eure Geräte nur einmal anlegen und das wars dann auch schon. Die folgende Zeile gibt euch einen Hinweis darauf, ab wo ihr das Script bei einem Update kopieren und wieder einfügen müsst. <br>
   ![update_Zeile.png](/admin/update_Zeile.png)
  <br>
 

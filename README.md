@@ -19,6 +19,7 @@ Das Script ist aktuell auf Homematic Taster und x-beliebige BWM ausgelegt und ge
       <a href="#anleitung">Anleitung</a>
        <ul>
         <li><a href="#installation">Script anlegen/installieren</a></li>
+         <li><a href="#default">Allgemeine Werte</a></li>
         <li><a href="#gruppen">Gruppen anlegen</a></li>
         <li><a href="#lampen">Lampen anlegen</a></li>
         <li><a href="#schedules">Zeitpläne anlegen</a></li>
@@ -79,9 +80,12 @@ Ein neues JS Script in iobroker erstellen und das Script aus "script-bwm-script.
 ![erstellung_1.png](/admin/erstellung_1.png) <br>
 ![erstellung_2.png](/admin/erstellung_2.png) <br>
 
-<!-- ALLGEMEINES -->
+<!-- DEFAULT -->
 ### Allgmeines
 Allgemein gültige Wete für das gesamte Script
+
+  ![Allgemeine_Werte_definieren.png](/admin/Allgemeine_Werte_definieren.png)
+
 * **defaultTransition**: TrasitionTime (sollte aufgrund des Dimmens nicht kleiner als **0.8** sein
 * **DimIntervall**: Schritte fürs dimmen (bei Level von 0-100 sind 10er Schritte ideal)
 * **luxThreshold**: Helligkeits-Wert der Lichtsensoren, ab wann das Licht geschaltet werden soll
@@ -100,7 +104,7 @@ Das Anlegen einer Gruppe ist sehr einfach.
 * In allen eckigen Klammern können mehrere Datenpunkte oder Werte definiert werden. Wichtig hierbei ist die Trennung durch ein Komma
 * Alle Werte sind in folgendem Screenshot beschrieben:
 
-    ![Gruppen_definieren.png](/admin/Gruppen_definieren.png.png)
+    ![Gruppen_definieren.png](/admin/Gruppen_definieren.png)
 
 <!-- LAMPEN -->
 ### Lampen definieren
@@ -114,6 +118,8 @@ Das Anlegen einer Gruppe ist sehr einfach.
 ### Zeitpläne definieren
 3. Es können beliebig viele Zeitpläne erstellt werden. Für jeden Zeitplan die erste **Zahl forlaufend** erhöhen!
 **Hinweis** Wenn mehrere Zeitpläne einer Lampe zugeordnet werden, sollten sich die Zeiten nicht überschneiden! Dies führt zur Fehlfunktion des Scripts!
+
+* Für jeden Zeitplan wird ein automatischer Schedule angelegt, welcher zur Startzeit die Werte **brighness** (nur wenn Licht an ist), **colorTemp** und **color** ändert. 
 
     ![Zeitpläne_definieren.png](/admin/Zeitpläne_definieren.png)
 
@@ -129,7 +135,6 @@ Das Anlegen einer Gruppe ist sehr einfach.
 Das wars dann auch schon. Nur noch speichern und das Script starten
 
 Viel Spaß dabei 
-
 
 
 <!-- CHANGELOG -->

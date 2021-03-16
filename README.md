@@ -65,23 +65,24 @@ Viel Spaß dabei
 
 ## Changelog
 
-### 0.2.2 (2020-02-06)
-* (ManuZz80* bugfix automatische Prüfung
+### 0.1.0 (2021-03-16)
+* (schmakus) Release der ersten Beta
+* (schmakus) Umsetzung der Änderung von Farbtemperatur, Farbe und Helligkeit durch automatische Zeitpläne
 
-### 0.2.1 (2020-01-20)
-* (Schmakus) Korrektur des Tippfehlers beim Sensorcheck
+### 0.0.3 (2021-01-20)
+* (schmakus) bugfixes
 
-### 0.2 (2020-12-11)
-* (xenon-s) zahlreiche Änderungen nach ersten Tests
+### 0.0.2 (2020-12-31)
+* (schmakus) zahlreiche Änderungen nach ersten Tests
 
-### 0.1 (2020-12-11)
-* (xenon-s) initial commit
+### 0.0.1 (2020-12-15)
+* (schmakus) initial commit
 
 
 # License
 MIT License
 
-Copyright (c) 2020 xenon-s<br>
+Copyright (c) 2021 schmakus<br>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:<br>
 

@@ -6,7 +6,12 @@
 # ioBroker.LightOnOffPresence (Version 0.1.0)
 Dieses Script ermöglicht es, eure Lampen über beliebig viele Bewegungsmelder, beliebig viele Taster und über vorhandene Datenpunkte zu Schalten und zu Dimmen.
 
-## Was sollte beachtet werden und was ist möglich?
+# Information
+Das Script ist aktuell auf Homematic Taster und x-beliebige Motion Sensoren ausgelegt und getestet. Weitere Auslöser und Funktionen sind weiter unten beschrieben.
+
+## Features
+### Licht schalten per Taster
+* Licht ein und aus per Taster, welcher ein "true" liefert (Aktuell getestet mit Homematic IP)
 Der timeout beginnt erst dann zu laufen, wenn der Datenpunkt "motion" des jeweiligen Bewegungsmelders den Wert "false" zurückgibt. Sollten mehrere Bewegungsmelder eine Lampe schalten, wird gewartet bis alle BWM "false" melden. <br>
 *Hinweis*: Die Einschaltdauer sollte nicht nur wenige Sekunden betragen, da einige Bewegungsmelder einen cooldown haben, bevor sie wieder Bewegungen erkennen und melden. Da führt dazu, dass eventuell Lampen bei zu kurzer Einschaltdauer ausschalten, obwohl man noch im Raum ist! <br>
 Wird ein Lichtsensor verwendet, kann man ihn pro Bewegungsmelder zuordnen. Auch kann man die Einschaltdauer pro Lampe einzeln festlegen. Das Script ist modular aufgebaut, d.h. es kann jeder Bewegungsmelder mit jeder Lampe (auch mehreren) gekoppelt werden. Das gleiche gilt für Lichtsensoren. <br>

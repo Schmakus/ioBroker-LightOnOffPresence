@@ -11,24 +11,23 @@ Das Script ist aktuell auf Homematic Taster und x-beliebige BWM ausgelegt und ge
 
 ## Inhalt
 <!-- TABLE OF CONTENTS -->
-<details open="open">
   <summary>Inhalt</summary>
   <ol>
     <li><a href="#features">Features</a></li>
     <li>
       <a href="#anleitung">Anleitung</a>
        <ul>
-        <li><a href="#installation">Script anlegen/installieren</a></li>
-         <li><a href="#default">Allgemeine Werte</a></li>
-        <li><a href="#gruppen">Gruppen anlegen</a></li>
-        <li><a href="#lampen">Lampen anlegen</a></li>
-        <li><a href="#schedules">Zeitpläne anlegen</a></li>
+        <li><a href="#Script-erstellenn">Script anlegen/installieren</a></li>
+         <li><a href="#Allgmeines">Allgemeine Werte</a></li>
+        <li><a href="#Gruppe-definieren">Gruppen anlegen</a></li>
+        <li><a href="#Lampen-definieren">Lampen anlegen</a></li>
+        <li><a href="#Zeitplaene-definieren">Zeitpläne anlegen</a></li>
       </ul>
     </li>
     <li><a href="#changelog">Changelog</a></li>
     <li><a href="#license">License</a></li>
   </ol>
-</details>
+
 
 
 
@@ -115,7 +114,7 @@ Das Anlegen einer Gruppe ist sehr einfach.
  
 
 <!-- SCHEDULES -->
-### Zeitpläne definieren
+### Zeitplaene definieren
 3. Es können beliebig viele Zeitpläne erstellt werden. Für jeden Zeitplan die erste **Zahl forlaufend** erhöhen!
 **Hinweis** Wenn mehrere Zeitpläne einer Lampe zugeordnet werden, sollten sich die Zeiten nicht überschneiden! Dies führt zur Fehlfunktion des Scripts!
 

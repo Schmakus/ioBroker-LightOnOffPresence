@@ -17,7 +17,7 @@ Das Script ist aktuell auf Homematic Taster und x-beliebige BWM ausgelegt und ge
     <li>
       <a href="#anleitung">Anleitung</a>
        <ul>
-        <li><a href="#Script-erstellenn">Script anlegen/installieren</a></li>
+        <li><a href="#Script-erstellen">Script anlegen/installieren</a></li>
          <li><a href="#Allgmeines">Allgemeine Werte</a></li>
         <li><a href="#Gruppe-definieren">Gruppen anlegen</a></li>
         <li><a href="#Lampen-definieren">Lampen anlegen</a></li>

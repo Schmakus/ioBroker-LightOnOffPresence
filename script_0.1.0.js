@@ -1,15 +1,18 @@
-const version = `v 0.0.4 BETA`
+const version = `v 0.1.0 BETA`
 const scriptname = `ioBroker-LightOnOffPresence`
 const constri = `Schmakus`
 
-let defaultTransition = 0.8;    // Standardwert für die TransitionTime in Sekunden
-let DimIntervall = 10;          // Dimmer Intervall: 10 = Zehnerschritte
-let luxThreshold = 1000;        // Lux-Schwelle für das Auslösen der BWM
+//------------------------------------------//
+//    Allgemine Werte definieren            //
+//------------------------------------------//
+let defaultTransition = 0.8;                        // Standardwert für die TransitionTime in Sekunden
+let DimIntervall = 10;                              // Dimmer Intervall: 10 = Zehnerschritte
+let luxThreshold = 15;                            // Lux-Schwelle für das Auslösen der BWM
 
 const statesPath = "javascript.0.Lichtersteuerung"; //Grundpfad für Script Datenpunkte.
 
-const logging = false; // Logging Ein/Aus
-const extLogging = false // Erweitertes Logging Ein/Aus
+const logging = false                               // Logging Ein/Aus
+const extLogging = false                            // Erweitertes Logging Ein/Aus
 
 //------------------------------------------//
 //    Hier die Gruppen/Räume anlegen        //
@@ -59,6 +62,22 @@ let arrGroups = [
         timerMotion: 10,                                        // Sekunden: Zeit, nachder das Licht ausgeschaltet wird, sofern keine Bewegung mehr erkannt wird.
         timerSwitch: 3600,                                      // Sekunden >0: Licht wird automatisch ausgeschaltet, sofern keine Bewegung mehr erkannt wird (Rückfallebene) 
         lights: [3],                                            // Leuchten, welche zur Gruppe gehören
+        lockBWM: true,                                          // Sperre für Bewegungsmelder, wenn das Licht manuell per Taster oder Datenpunkt eingeschaltet wurde
+        defaultSwitch: false,                                   // true: Lampen werden mit Schalter auf Default Helligkeit gesetzt // false: Lampen werden nach Zeitplan gesetzt
+        keyStrokes: 1,                                          // 1 = Nur ein Tastendruck EIN wird gewertet. >1 = Es werden entsprechend der Zahlt gewertet
+    },
+    //Wohnzimmer Spots
+    {
+        description: 'Wohnzimmer Spots',                         //Beschreibung der Gruppe. Notwendig zur Erzeugung der Datenpunkte
+        pathOn: ['hm-rpc.1.00171A499D46DC.14.PRESS_SHORT'],     //Pfad zum Taster für Licht ein
+        pathOff: ['hm-rpc.1.00171A499D46DC.15.PRESS_SHORT'],    //Pfad zum Taster für Licht aus
+        pathDimmUp: ['hm-rpc.1.00171A499D46DC.14.PRESS_LONG'],  //Pfad zum Taster für Hochdimmen !!! Aktuell nur Homematic
+        pathDimmDown: ['hm-rpc.1.00171A499D46DC.15.PRESS_LONG'],//Pfad zum Taster für Runterdimmen !!! Aktuell nur Homematic
+        pathBWM: [],                                            //Pfad zum Bewegungsmelder
+        pathLux: '',                                            //Pfad zum Lichtsensor in Lux
+        timerMotion: 10,                                        // Sekunden: Zeit, nachder das Licht ausgeschaltet wird, sofern keine Bewegung mehr erkannt wird.
+        timerSwitch: 3600,                                      // Sekunden >0: Licht wird automatisch ausgeschaltet, sofern keine Bewegung mehr erkannt wird (Rückfallebene) 
+        lights: [5],                                            // Leuchten, welche zur Gruppe gehören
         lockBWM: true,                                          // Sperre für Bewegungsmelder, wenn das Licht manuell per Taster oder Datenpunkt eingeschaltet wurde
         defaultSwitch: false,                                   // true: Lampen werden mit Schalter auf Default Helligkeit gesetzt // false: Lampen werden nach Zeitplan gesetzt
         keyStrokes: 1,                                          // 1 = Nur ein Tastendruck EIN wird gewertet. >1 = Es werden entsprechend der Zahlt gewertet
@@ -122,6 +141,19 @@ let arrLights = {
         buttonPress: [1],                                       // Bei welchem Tastendruck soll die Lampe reagieren?
         emergencyLevel: 100,                                    // Level > 0: Das Licht wird Auslösen des Emergency Datenpunkts auf das eingestellte Level geschaltet   
     },
+    5: {
+        name: 'Wohnzimmer Spots',
+        pathControl: 'deconz.0.groups.2.level',                // Pfad zum Datenpunkt, mitdem die Lampe geschaltet wird. (Brightness oder State)
+        pathColortemp: 'deconz.0.groups.2.ct',                 // Pfad zum Datenpunkt, mitdem die Lampe geschaltet wird. (Brightness oder State) - sofern vorhanden
+        pathTransistion: 'deconz.0.groups.2.transitiontime',   // Pfad zum Datenpunkt, für die Transition Time.
+        pathColor: 'deconz.0.groups.2.hue',                     // Pfad zum Datenpunkt, für die Farbe. - sofern vorhanden
+        defaultLevel: 70,                                       // Default Level-Wert beim Einschalten, sollte kein Zeitplan zutreffen
+        defaultColorTemp: 370,                                  // Sofern ein Wert gesetzt ist, Farbtemperatur - sofern vorhanden
+        color: '0',                                              // Sofern ein Wert gesetzt ist, wird die Lampe entsprechend farbig. - sofern vorhanden
+        schedules: [5,6],                                       // Zeitplan-Zuordnung, wann die Leuchte mit welcher Helligkeit leuchtet
+        buttonPress: 1,                                         // Bei welchem Tastendruck soll die Lampe reagieren?
+        emergencyLevel: 100,                                    // Level > 0: Das Licht wird Auslösen des Emergency Datenpunkts auf das eingestellte Level geschaltet    
+    },
 };
 
 //------------------------------------------------------//
@@ -129,13 +161,17 @@ let arrLights = {
 //------------------------------------------------------//
 let arrSchedules = {
     // Zeitplan 1
-	1: {from: '08:00', to: '22:00', brightness: 50, colorTemp: 360, color: '', state: true, name:"Tagsüber von 8-22 Uhr: Helligkeit 50"  },
+	1: {from: '08:00', to: '22:00', days: '1-7', brightness: 50, colorTemp: 360, color: '', state: true, name:"Tagsüber von 8-22 Uhr: Helligkeit 50"  },
 	// Zeitplan 2
-	2: {from: '22:00', to: '08:00', brightness: 5, colorTemp: 360, color: '', state: true, name:"Nachts von 22-8 Uhr Helligkeit 5" },
+	2: {from: '22:00', to: '08:00', days: '1-7', brightness: 5, colorTemp: 360, color: '', state: true, name:"Nachts von 22-8 Uhr Helligkeit 5" },
 	// Zeitplan 3
-	3: {from: '05:00', to: '22:00', brightness: 70, colorTemp: 360, color: '', state: true, name:"Tagsüber von 6-22 Uhr: Helligkeit 70" },
+	3: {from: '05:00', to: '22:00', days: '1-7', brightness: 70, colorTemp: 360, color: '', state: true, name:"Tagsüber von 5-22 Uhr: Helligkeit 70" },
 	// Zeitplan 4
-	4: {from: '22:00', to: '06:00', brightness: 0, colorTemp: 360, color: '', state: false, name:"Nachts von 0 - 6 Uhr AUS" },
+	4: {from: '22:00', to: '06:00', days: '1-7', brightness: 0, colorTemp: 360, color: '', state: false, name:"Nachts von 22 - 6 Uhr AUS" },
+    // Zeitplan 5
+    5: {from: '06:00', to: '21:30', days: '1-7', brightness: 80, colorTemp: 300, color: '', state: true, name:"Nachts von 22-8 Uhr Helligkeit 80" },
+    // Zeitplan 6
+    6: {from: '21:30', to: '06:00', days: '1-7', brightness: 10, colorTemp: 360, color: '', state: true, name:"Nachts von 21:30-6 Uhr Helligkeit 10" },
 };
 
 //------------------------------------------//
@@ -262,9 +298,7 @@ for (const i in arrLights) {
         arrLights[i].setLightOn = async function(group){
             if (group.buttonPress == this.buttonPress) {
                 //if (this.pathTransistion) await setStateAsync(this.pathTransistion, this.defaultTransition)
-                //if (this.pathColortemp) await setStateAsync(this.pathColortemp, this.defaultColorTemp)
-                //if (this.pathColor) await setStateAsync(this.pathColor, this.defaultColor)
- 
+  
                 setStateAsync(this.pathControl, (this.pathControlType == 'number') ? this.defaultLevel : true)
                 if (extLogging) console.log(`${scriptname}: Licht wird eingeschaltet: ${this.name} // Pfad: ${this.pathControl} // Wert: ${(this.pathControlType == 'number') ? this.defaultLevel : true}`);
                 setState(this.pathLastValue, (this.pathControlType == 'number') ? this.defaultLevel : true, true);
@@ -314,8 +348,6 @@ for (const i in arrLights) {
                 let schedule = arrSchedules[this.schedules[y]];
                 if (compareTime(schedule.from, schedule.to, "between", null)) {
                     //if (this.pathColortemp) await setStateAsync(this.pathTransistion, this.defaultTransition)
-                    //if (this.pathColortemp && schedule.colorTemp) await setStateAsync(this.pathColortemp, schedule.colorTemp)
-                    //if (this.pathColor && schedule.color) await setStateAsync(this.pathColor, schedule.color)
 
                     setStateAsync(this.pathControl, (this.pathControlType == 'number') ? schedule.brightness : schedule.state)
                     if (extLogging) console.log(`${scriptname}: Licht wird eingeschaltet: ${this.name} // Pfad: ${this.pathControl} // Wert: ${(this.pathControlType == 'number') ? schedule.brightness : schedule.state} // Zeitplan: ${schedule.name}`);
@@ -361,6 +393,14 @@ for (const i in arrLights) {
                 }
             }  
         }
+        arrLights[i].setLightParameter = async function(brightness, colorTemp, color){
+            if (this.pathControl && brightness) {
+                if (this.pathControlType == 'number' && getState(this.pathControl).val) setStateAsync(this.pathControl, brightness)
+            } 
+            if (this.pathColortemp && colorTemp) setStateAsync(this.pathColortemp, colorTemp)
+            if (this.pathColor && color) setStateAsync(this.pathColor, color)
+            if (extLogging) console.log(`${scriptname}: Licht-Parameter wurden gesetzt: ${this.name}`);
+        }
     }
 };
 
@@ -379,7 +419,7 @@ customStates.forEach(function (state) {
                 setObjectAsync(statesPath + '.' + x + '.' + 'GroupInfo', { type: 'channel', common: { name: 'Gruppen Informationen ' + arrGroups[i].description }, native: {} });
             };
             createTrigger(arrGroups, arrLights);
-            //createSchedules(arrLights, arrSchedules);
+            createSchedules(arrLights, arrSchedules);
         };
     });
 });
@@ -387,20 +427,45 @@ customStates.forEach(function (state) {
 //******* Logeintrag mit Scriptnamen, Version und Developer */
 console.log(`${scriptname} ${version} ${constri}`);
 
-async function createSchedules(arrLights, arrSchedules) {
+//--------------------------------------//
+//      Create Trigger Schedules        //
+//--------------------------------------//
 
-    let lightSchedules = {};
+async function createSchedules(arrLights, arrSchedules) {
+    
     for (const i in arrSchedules) {
-        console.warn('Schedules: ' + arrSchedules[i].name)
-        for (const y in arrLights) {
-            for (const n in arrLights[y].schedules) {
-                console.warn(arrLights[y].schedules[n])
+        
+        let sched = arrSchedules[i]
+        if (extLogging) console.warn(sched.name)
+        //Zusammensetzung des Cron-Expressions
+        let Hour = (sched.from.split(':')[0] != '00') ? sched.from.split(':')[0] : '0'
+        let Minute = (sched.from.split(':')[1] != '00') ? sched.from.split(':')[0] : '0'
+        let Days = (sched.days = '1-7') ? '*' : sched.days
+        let cronExpression = Minute + ' ' + Hour + ' * * ' + Days
+        if (extLogging) console.warn(cronExpression)
+
+        //Erstellung des Cronjobs für diesen Zeitplan
+        schedule(cronExpression, async function () {
+            //Schleife durch alle Lichter
+            for (const y in arrLights) {
+                let light = arrLights[y]
+                //Schleife durch alle zugeordneten Zeitplänen
+                for (const n in light.schedules) {
+                    //Prüfen, ob Lampe dem Zeitplan zugeorndet ist
+                    if (i == light.schedules[n]) {
+                        //Falls ja, dann Parameter der Lampe setzen
+                        light.setLightParameter(sched.brightness, sched.colorTemp, sched.color)
+                        if (logging) console.log(`${scriptname}: Scheduler für Zeitplan ${i} wurde ausgelöst.`);
+                    }
+                }
             }
-        }        
+        });
     }
 }
 
-//******* Schleife über das Objekt "Groups" mit Erstellung aller nötigen Trigger
+//--------------------------------------//
+//      Create Trigger Taster, Motion   //
+//--------------------------------------//
 async function createTrigger(arrGroups, lights) {
 
     arrGroups.forEach(function async(objTemp) {
@@ -580,7 +645,7 @@ async function createTrigger(arrGroups, lights) {
                     }
                     else{ // Wenn kein BWM mehr auf true steht
                         objTemp.Timeout = setTimeout(async () => {
-                            //Licht aus
+                            //Licht ein nach Zeitplan
                             for (const n in objTemp.lights) {
                                 let light = lights[objTemp.lights[n]];
                                 light.setLightOff(objTemp);

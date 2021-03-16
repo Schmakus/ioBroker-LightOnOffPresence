@@ -82,11 +82,17 @@ Ein neues JS Script in iobroker erstellen und das Script aus "script-bwm-script.
 <!-- ALLGEMEINES -->
 ### Allgmeines
 Allgemein gültige Wete für das gesamte Script
+* **defaultTransition**: TrasitionTime (sollte aufgrund des Dimmens nicht kleiner als **0.8** sein
+* **DimIntervall**: Schritte fürs dimmen (bei Level von 0-100 sind 10er Schritte ideal)
+* **luxThreshold**: Helligkeits-Wert der Lichtsensoren, ab wann das Licht geschaltet werden soll
+* **statesPath**: Ort, wo die Datenpunkte agelegt werden sollen
+* **logging**: Einfaches Logging
+* **extLogging**: Erweitertes Logging
 
 
 <!-- GRUPPEN -->
 ### Gruppe definieren
-1. Das Anlegen einer Gruppe ist sehr einfach.<br>
+Das Anlegen einer Gruppe ist sehr einfach.
 
 * Man benötigt nur die Pfade der Taster, BMWs und Lichtsensor.
 * Definieren der Timer und Sperren.

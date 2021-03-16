@@ -1,12 +1,10 @@
-# ioBroker.LightOnOffPresence
-
 **Falls euch meine Arbeit gefällt :** <br>
 
-[![Paypal Donation](https://img.shields.io/badge/paypal-donate%20%7C%20spenden-blue.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3EYML5A4EMJCW&source=url)
+[![Paypal Donation](https://img.shields.io/badge/paypal-donate%20%7C%20spenden-blue.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PK89K4V2RBU78&source=url)
 
 
-# js.BWM-Script: Bewegungsmelderscript für ioBroker (Version 0.2.2)
-Dieses Script ermöglicht es, unzählige Bewegungsmelder, Schaltaktoren (Steckdosen, Lampen, etc.) und Lichtsensoren im ioBroker miteinander zu verknüpfen
+# ioBroker.LightOnOffPresence (Version 0.0.4)
+Dieses Script ermöglicht es, eure Lampen über beliebig viele Bewegungsmelder, beliebig viele Taster und über vorhandene Datenpunkte zu Schalten und zu Dimmen.
 
 ## Was sollte beachtet werden und was ist möglich?
 Der timeout beginnt erst dann zu laufen, wenn der Datenpunkt "motion" des jeweiligen Bewegungsmelders den Wert "false" zurückgibt. Sollten mehrere Bewegungsmelder eine Lampe schalten, wird gewartet bis alle BWM "false" melden. <br>

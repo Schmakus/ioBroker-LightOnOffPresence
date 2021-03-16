@@ -22,6 +22,7 @@ Das Script ist aktuell auf Homematic Taster und x-beliebige BWM ausgelegt und ge
         <li><a href="#Gruppe-definieren">Gruppen anlegen</a></li>
         <li><a href="#Lampen-definieren">Lampen anlegen</a></li>
         <li><a href="#Zeitplaene-definieren">Zeitpläne anlegen</a></li>
+         <li><a href="#Beschreibung-Datenpunkte">Übersicht der Datenpunkte</a></li>
       </ul>
     </li>
     <li><a href="#changelog">Changelog</a></li>
@@ -130,6 +131,13 @@ Das Anlegen einer Gruppe ist sehr einfach.
 - **color**: Farbe, sofern in der Gruppe ein Datenpunkt definiert wurde
 - **state**: true/false = Ein/Aus (Sofern der Datenpunkt **pathControll** der Gruppe des Typs **boolean** entspricht)
 - **name**: Freier Text zur einfacheren Unterscheidung. Keine Funktion innerhalb des Scripts, nur beim logging
+
+## Beschreibung Datenpunkte
+
+  ![Datenpunkte.png](/admin/Datenpunkte.png)
+
+
+
 
 Das wars dann auch schon. Nur noch speichern und das Script starten
 

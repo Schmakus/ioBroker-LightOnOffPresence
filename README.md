@@ -3,7 +3,7 @@
 [![Paypal Donation](https://img.shields.io/badge/paypal-donate%20%7C%20spenden-blue.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PK89K4V2RBU78&source=url)
 
 
-# ioBroker.LightOnOffPresence (Version 0.0.4)
+# ioBroker.LightOnOffPresence (Version 0.1.0)
 Dieses Script ermöglicht es, eure Lampen über beliebig viele Bewegungsmelder, beliebig viele Taster und über vorhandene Datenpunkte zu Schalten und zu Dimmen.
 
 ## Was sollte beachtet werden und was ist möglich?

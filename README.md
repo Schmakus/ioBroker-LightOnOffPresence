@@ -4,18 +4,42 @@
 
 
 # ioBroker.LightOnOffPresence (Version 0.1.0)
-Dieses Script ermöglicht es, eure Lampen über beliebig viele Bewegungsmelder, beliebig viele Taster und über vorhandene Datenpunkte zu Schalten und zu Dimmen.
+Dieses Script ermöglicht es, eure Lampen über beliebig viele Bewegungsmelder (BWM, beliebig viele Taster und über vorhandene Datenpunkte zu Schalten und zu Dimmen.
 
-# Information
-Das Script ist aktuell auf Homematic Taster und x-beliebige Motion Sensoren ausgelegt und getestet. Weitere Auslöser und Funktionen sind weiter unten beschrieben.
+## Information
+Das Script ist aktuell auf Homematic Taster und x-beliebige BWM ausgelegt und getestet. Weitere Auslöser und Funktionen sind weiter unten beschrieben.
 
+## Inhalt
+<!-- TABLE OF CONTENTS -->
+<details open="open">
+  <summary>Inhalt</summary>
+  <ol>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#acknowledgements">Acknowledgements</a></li>
+  </ol>
+</details>
+
+
+
+<!-- FEATURES -->
 ## Features
 ### Licht schalten per Taster
 * Licht ein und aus per Taster, welcher ein "true" liefert (Aktuell getestet mit Homematic IP)
-Der timeout beginnt erst dann zu laufen, wenn der Datenpunkt "motion" des jeweiligen Bewegungsmelders den Wert "false" zurückgibt. Sollten mehrere Bewegungsmelder eine Lampe schalten, wird gewartet bis alle BWM "false" melden. <br>
-*Hinweis*: Die Einschaltdauer sollte nicht nur wenige Sekunden betragen, da einige Bewegungsmelder einen cooldown haben, bevor sie wieder Bewegungen erkennen und melden. Da führt dazu, dass eventuell Lampen bei zu kurzer Einschaltdauer ausschalten, obwohl man noch im Raum ist! <br>
-Wird ein Lichtsensor verwendet, kann man ihn pro Bewegungsmelder zuordnen. Auch kann man die Einschaltdauer pro Lampe einzeln festlegen. Das Script ist modular aufgebaut, d.h. es kann jeder Bewegungsmelder mit jeder Lampe (auch mehreren) gekoppelt werden. Das gleiche gilt für Lichtsensoren. <br>
+* Individuell für jede Gruppe kann bei Licht ein gewählt werden, ob die Helligkeit auf einen Standard-Wert oder ob die Helligkeit nach Zeitplan-Definition gesetz wird.
+* Individuell für jede Gruppe kann festgelegt werden, ob ein vorhandener BWM beim Schalten mit Taster außer Kraft gesetzt werden kann (Putzlicht)
+* Individuell für jede Gruppe kann festgelegt werden, ob eine "Sicherheitsabschaltung" nach Zeit X erfolgen soll
 
+### Licht schalten per BWM
+* Das Licht wird bei Bewegung eingeschalten. Dabei spielt es keine Rolle, welcher BWM der Gruppe ausgelöst hat
+* Das Licht wird nach Zeit X (Individuell pro Gruppe einstellbar) ausgeschalten, wenn alle BWM auf "false" sind
+* Der timeout beginnt erst dann zu laufen, wenn alle BWM den Wert "false" stehen.
+
+*Hinweis*: Die Einschaltdauer sollte nicht nur wenige Sekunden betragen, da einige Bewegungsmelder einen cooldown haben, bevor sie wieder Bewegungen erkennen und melden. Da führt dazu, dass eventuell Lampen bei zu kurzer Einschaltdauer ausschalten, obwohl man noch im Raum ist! <br>
+* Wird ein Lichtsensor verwendet, kann man ihn pro Gruppe zuordnen.
 
 ## Script-Updates einspielen
 - Das Script ist so aufgebaut, dass Updates keinen Einfluss auf eure Geräteliste haben. Ihr müsst eure Geräte nur einmal anlegen und das wars dann auch schon. Die folgende Zeile gibt euch einen Hinweis darauf, ab wo ihr das Script bei einem Update kopieren und wieder einfügen müsst. <br>

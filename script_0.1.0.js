@@ -25,7 +25,7 @@ let arrGroups = [
         pathOff: ['hm-rpc.1.00171A499D4685.1.PRESS_SHORT'],     //Pfad zum Taster für Licht aus
         pathDimmUp: ['hm-rpc.1.00171A499D46DC.32.PRESS_LONG'],  //Pfad zum Taster für Hochdimmen !!! Aktuell nur Homematic
         pathDimmDown: ['hm-rpc.1.00171A499D4685.1.PRESS_LONG'], //Pfad zum Taster für Runterdimmen !!! Aktuell nur Homematic
-        pathBWM: ['zigbee.0.00158d0004514986.occupancy'],       //Pfad zum Bewegungsmelder
+        pathBWM: ['zigbee.0.00158d0004514986.occupancy', 'zigbee.0.00168d0004514987.occupancy'],       //Pfad zum Bewegungsmelder. Mehrere BWM durch Kommatrennung
         pathLux: 'zigbee.0.00158d0004514986.illuminance',       //Pfad zum Lichtsensor in Lux
         timerMotion: 10,                                        // Sekunden: Zeit, nachder das Licht ausgeschaltet wird, sofern keine Bewegung mehr erkannt wird.
         timerSwitch: 3600,                                      // Sekunden >0: Licht wird automatisch ausgeschaltet, sofern keine Bewegung mehr erkannt wird (Rückfallebene) 

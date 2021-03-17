@@ -25,6 +25,8 @@ Das Script ist aktuell auf Homematic Taster und x-beliebige BWM ausgelegt und ge
          <li><a href="#Beschreibung-Datenpunkte">Übersicht der Datenpunkte</a></li>
       </ul>
     </li>
+    <li><a href="#zukuenftige-planungen">Planungen / Ideen</a></li>
+    <li><a href="#faqs">FAQ</a></li>
     <li><a href="#changelog">Changelog</a></li>
     <li><a href="#license">License</a></li>
   </ol>
@@ -128,7 +130,7 @@ Das Anlegen einer Gruppe ist sehr einfach.
 - **days**: 1: Mo // 1-2: Mo-Di // 2-3: Di-Mi // 1-4: Mo // 1-7: Mo-So // usw.
 - **brighness**: Helligkeit der Lampe (Sofern der Datenpunkt **pathControll** der Gruppe des Typs **number** entspricht)
 - **colorTemp**: Farbtemperatur, sofern in der Gruppe ein Datenpunkt definiert wurde
-- **color**: Farbe, sofern in der Gruppe ein Datenpunkt definiert wurde
+- **color**: Farbe, sofern in der Gruppe ein Datenpunkt definiert wurde (Angabe als Hex-Wert: z.B. **#0000FF** oder als xy-Wert: z.B. **100, 100**
 - **state**: true/false = Ein/Aus (Sofern der Datenpunkt **pathControll** der Gruppe des Typs **boolean** entspricht)
 - **name**: Freier Text zur einfacheren Unterscheidung. Keine Funktion innerhalb des Scripts, nur beim logging
 
@@ -136,7 +138,14 @@ Das Anlegen einer Gruppe ist sehr einfach.
 
   ![Datenpunkte.png](/admin/Datenpunkte.png)
 
+## Zukuenftige Planungen
+* Schalten des Lichts mit nur einem einzelnen Taster
+* Schalten und Dimmen des Lichts mit unterschiedlichen Tastertypen. z.B. Aquara welche einen Zahlenwert auswerfen
+* Astrozeiten in den Zeitplänen
+* Individuelle Brighness-Werte von Lampen (z.B. anstatt 0-100 => 0-256)
+* Ansteuerung der Farben, wenn mehrere Datenpunkte beschrieben werden müssen (HSL, HS,...)
 
+## FAQ
 
 
 Das wars dann auch schon. Nur noch speichern und das Script starten

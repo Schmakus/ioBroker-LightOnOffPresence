@@ -27,6 +27,7 @@ Das Script ist aktuell auf Homematic Taster und x-beliebige BWM ausgelegt und ge
     </li>
     <li><a href="#zukuenftige-planungen">Planungen / Ideen</a></li>
     <li><a href="https://github.com/Schmakus/ioBroker.LightOnOffPresence/wiki/FAQ">FAQ</a></li>
+    <li><a href="#greetings">Schlusswort</a></li>
     <li><a href="#changelog">Changelog</a></li>
     <li><a href="#license">License</a></li>
   </ol>
@@ -145,8 +146,8 @@ Das Anlegen einer Gruppe ist sehr einfach.
 * Individuelle Brighness-Werte von Lampen (z.B. anstatt 0-100 => 0-256)
 * Ansteuerung der Farben, wenn mehrere Datenpunkte beschrieben werden müssen (HSL, HS,...)
 
-## FAQ
-
+## Greetings
+Vielen Dank an Carlo Pittini und Stefan Feldkamp für die Inspiration für diese Script. Ich habe mich bei beiden ewtas beim Coding abgeschaut. ;-)
 
 Das wars dann auch schon. Nur noch speichern und das Script starten
 

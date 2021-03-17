@@ -168,10 +168,10 @@ let arrSchedules = {
 	3: {from: '05:00', to: '22:00', days: '1-7', brightness: 70, colorTemp: 360, color: '', state: true, name:"Tagsüber von 5-22 Uhr: Helligkeit 70" },
 	// Zeitplan 4
 	4: {from: '22:00', to: '06:00', days: '1-7', brightness: 0, colorTemp: 360, color: '', state: false, name:"Nachts von 22 - 6 Uhr AUS" },
-    // Zeitplan 5
-    5: {from: '06:00', to: '21:30', days: '1-7', brightness: 80, colorTemp: 300, color: '', state: true, name:"Nachts von 22-8 Uhr Helligkeit 80" },
-    // Zeitplan 6
-    6: {from: '21:30', to: '06:00', days: '1-7', brightness: 10, colorTemp: 360, color: '', state: true, name:"Nachts von 21:30-6 Uhr Helligkeit 10" },
+    	// Zeitplan 5
+    	5: {from: '06:00', to: '21:30', days: '1-7', brightness: 80, colorTemp: 300, color: '', state: true, name:"Nachts von 22-8 Uhr Helligkeit 80" },
+    	// Zeitplan 6
+    	6: {from: '21:30', to: '06:00', days: '1-7', brightness: 10, colorTemp: 360, color: '', state: true, name:"Nachts von 21:30-6 Uhr Helligkeit 10" },
 };
 
 //------------------------------------------//

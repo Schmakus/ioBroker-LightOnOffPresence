@@ -119,17 +119,20 @@ Das Anlegen einer Gruppe ist sehr einfach.
 
 <!-- SCHEDULES -->
 ### Zeitplaene definieren
-3. Es können beliebig viele Zeitpläne erstellt werden. Für jeden Zeitplan die erste **Zahl forlaufend** erhöhen!
+**Vorwort:** Die Zeitpläne sind **nicht** dafür gedacht, das Licht ein- oder auszuschalten, sondern legen nur fest, in welcher Helligkeit, Farbtemperatur und Farbe das Licht haben soll, wenn es geschaltet wird!
+
+Es können beliebig viele Zeitpläne erstellt werden. Für jeden Zeitplan die erste **Zahl forlaufend** erhöhen!
+
 **Hinweis** Wenn mehrere Zeitpläne einer Lampe zugeordnet werden, sollten sich die Zeiten nicht überschneiden! Dies führt zur Fehlfunktion des Scripts!
 
-* Für jeden Zeitplan wird ein automatischer Schedule angelegt, welcher zur Startzeit die Werte **brighness** (nur wenn Licht an ist), **colorTemp** und **color** ändert. 
+* Für jeden Zeitplan wird ein automatischer Schedule angelegt, welcher zur Startzeit die Werte **brightness** (nur wenn Licht an ist), **colorTemp** und **color** ändert. 
 
     ![Zeitpläne_definieren.png](/admin/Zeitpläne_definieren.png)
 
 - **from**: Startzeit (wird ebenfalls für den automatischen Scheduler verwendet)
 - **to**: Endzeit
 - **days**: 1: Mo // 1-2: Mo-Di // 2-3: Di-Mi // 1-4: Mo // 1-7: Mo-So // usw.
-- **brighness**: Helligkeit der Lampe (Sofern der Datenpunkt **pathControll** der Gruppe des Typs **number** entspricht)
+- **brightness**: Helligkeit der Lampe (Sofern der Datenpunkt **pathControll** der Gruppe des Typs **number** entspricht)
 - **colorTemp**: Farbtemperatur, sofern in der Gruppe ein Datenpunkt definiert wurde
 - **color**: Farbe, sofern in der Gruppe ein Datenpunkt definiert wurde (Angabe als Hex-Wert: z.B. **#0000FF** oder als xy-Wert: z.B. **100, 100**
 - **state**: true/false = Ein/Aus (Sofern der Datenpunkt **pathControll** der Gruppe des Typs **boolean** entspricht)

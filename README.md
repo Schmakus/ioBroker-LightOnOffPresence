@@ -26,7 +26,7 @@ Das Script ist aktuell auf Homematic Taster und x-beliebige BWM ausgelegt und ge
       </ul>
     </li>
     <li><a href="#zukuenftige-planungen">Planungen / Ideen</a></li>
-    <li><a href="/wiki/FAQ">FAQ</a></li>
+    <li><a href="https://github.com/Schmakus/ioBroker.LightOnOffPresence/wiki/FAQ">FAQ</a></li>
     <li><a href="#changelog">Changelog</a></li>
     <li><a href="#license">License</a></li>
   </ol>

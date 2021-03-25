@@ -9,6 +9,8 @@ Dieses Script ermöglicht es, eure Lampen über beliebig viele Bewegungsmelder (
 ## Information
 Das Script ist aktuell auf Homematic Taster und x-beliebige BWM ausgelegt und getestet.Es befindet sich noch im Beta Status und kann fehler enthalten. Bei Fehlfunktionen einfach ein Issue aufmachen.
 
+Link zum ioBroker-Forum-Thread: https://forum.iobroker.net/topic/43594/vorlage-lichtscript-lightonoffpresence
+
 ## Inhalt
 <!-- TABLE OF CONTENTS -->
   <summary>Inhalt</summary>
@@ -165,7 +167,7 @@ Es können beliebig viele Zeitpläne erstellt werden. Für jeden Zeitplan die er
 * Ansteuerung der Farben, wenn mehrere Datenpunkte beschrieben werden müssen (HSL, HS,...)
 
 ## Greetings
-Vielen Dank an Carlo Pittini und Stefan Feldkamp für die Inspiration für diese Script. Ich habe mich bei beiden ewtas beim Coding abgeschaut. ;-)
+Vielen Dank an Carlo Pittini, Stefan Feldkamp und MIC für die Inspiration für diese Script. Ich habe mich bei beiden ewtas beim Coding abgeschaut. ;-)
 
 Das wars dann auch schon. Nur noch speichern und das Script starten
 

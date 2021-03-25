@@ -3,7 +3,7 @@
 [![Paypal Donation](https://img.shields.io/badge/paypal-donate%20%7C%20spenden-blue.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PK89K4V2RBU78&source=url)
 
 
-# ioBroker.LightOnOffPresence (Version 0.1.0)
+# ioBroker.LightOnOffPresence (Version 0.1.1)
 Dieses Script ermöglicht es, eure Lampen über beliebig viele Bewegungsmelder (BWM, beliebig viele Taster und über vorhandene Datenpunkte zu Schalten und zu Dimmen.
 
 ## Information
@@ -129,7 +129,7 @@ Es können beliebig viele Zeitpläne erstellt werden. Für jeden Zeitplan die er
 
     ![Zeitpläne_definieren.png](/admin/Zeitpläne_definieren.png)
 
-- **from**: Startzeit (wird ebenfalls für den automatischen Scheduler verwendet)
+- **from**: Startzeit als Uhreit (z.B. 12:00 oder als Astrozeit "sunrise") => Ebenfalls ist es möglich ein Offset in minuten zu setzten: sunrise+30
 - **to**: Endzeit
 - **days**: 1: Mo // 1-2: Mo-Di // 2-3: Di-Mi // 1-4: Mo // 1-7: Mo-So // usw.
 - **brightness**: Helligkeit der Lampe (Sofern der Datenpunkt **pathControll** der Gruppe des Typs **number** entspricht)
@@ -138,6 +138,21 @@ Es können beliebig viele Zeitpläne erstellt werden. Für jeden Zeitplan die er
 - **state**: true/false = Ein/Aus (Sofern der Datenpunkt **pathControll** der Gruppe des Typs **boolean** entspricht)
 - **name**: Freier Text zur einfacheren Unterscheidung. Keine Funktion innerhalb des Scripts, nur beim logging
 
+* "sunrise": sunrise (top edge of the sun appears on the horizon)
+* "sunriseEnd": sunrise ends (bottom edge of the sun touches the horizon)
+* "goldenHourEnd": morning golden hour (soft light, best time for photography) ends
+* "solarNoon": solar noon (sun is in the highest position)
+* "goldenHour": evening golden hour starts
+* "sunsetStart": sunset starts (bottom edge of the sun touches the horizon)
+* "sunset": sunset (sun disappears below the horizon, evening civil twilight starts)
+* "dusk": dusk (evening nautical twilight starts)
+* "nauticalDusk": nautical dusk (evening astronomical twilight starts)
+* "night": night starts (dark enough for astronomical observations)
+* "nightEnd": night ends (morning astronomical twilight starts)
+* "nauticalDawn": nautical dawn (morning nautical twilight starts)
+* "dawn": dawn (morning nautical twilight ends, morning civil twilight starts)
+* "nadir": nadir (darkest moment of the night, sun is in the lowest position)
+
 ## Beschreibung Datenpunkte
 
   ![Datenpunkte.png](/admin/Datenpunkte.png)
@@ -145,7 +160,6 @@ Es können beliebig viele Zeitpläne erstellt werden. Für jeden Zeitplan die er
 ## Zukuenftige Planungen
 * Schalten des Lichts mit nur einem einzelnen Taster
 * Schalten und Dimmen des Lichts mit unterschiedlichen Tastertypen. z.B. Aquara welche einen Zahlenwert auswerfen
-* Astrozeiten in den Zeitplänen
 * Individuelle Brighness-Werte von Lampen (z.B. anstatt 0-100 => 0-256)
 * Ansteuerung der Farben, wenn mehrere Datenpunkte beschrieben werden müssen (HSL, HS,...)
 
@@ -159,6 +173,11 @@ Viel Spaß dabei
 
 <!-- CHANGELOG -->
 ## Changelog
+
+### 0.1.1 (2021-03-25)
+* (schmakus) BugFix beim setzen der Lampenparameter durch den Zeitplan. Helligkeit wurde auch gesetzt, obwohl Lape aus war
+* (schmakus) Verwenden von Astrozeiten in den Zeitplänen
+* (schmakus) Diverse Optimierungen
 
 ### 0.1.0 (2021-03-16)
 * (schmakus) Release der ersten Beta

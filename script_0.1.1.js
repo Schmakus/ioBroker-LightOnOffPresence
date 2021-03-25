@@ -177,21 +177,21 @@ let arrLights = {
 //------------------------------------------------------//
 let arrSchedules = {
     // Zeitplan 1
-	1: {start: '07:00', end: '22:00', days: '1-7', brightness: 50, colorTemp: 360, color: '', state: true, name:"Tagsüber von 7-22 Uhr: Helligkeit 50"  },
-	// Zeitplan 2
-	2: {start: '22:00', end: '07:00', days: '1-7', brightness: 5, colorTemp: 360, color: '', state: true, name:"Nachts von 22-7 Uhr Helligkeit 5" },
-	// Zeitplan 3
-	3: {start: '05:00', end: '22:00', days: '1-7', brightness: 70, colorTemp: 360, color: '', state: true, name:"Tagsüber von 5-22 Uhr: Helligkeit 70" },
-	// Zeitplan 4
-	4: {start: '22:00', end: '06:00', days: '1-7', brightness: 0, colorTemp: 360, color: '', state: false, name:"Nachts von 22 - 6 Uhr AUS" },
+    1: {start: '07:00', end: '22:00', days: '1-7', brightness: 50, colorTemp: 360, color: '', state: true, name:"Tagsüber von 7-22 Uhr: Helligkeit 50"  },
+    // Zeitplan 2
+    2: {start: '22:00', end: '07:00', days: '1-7', brightness: 5, colorTemp: 360, color: '', state: true, name:"Nachts von 22-7 Uhr Helligkeit 5" },
+    // Zeitplan 3
+    3: {start: '05:00', end: '22:00', days: '1-7', brightness: 70, colorTemp: 360, color: '', state: true, name:"Tagsüber von 5-22 Uhr: Helligkeit 70" },
+    // Zeitplan 4
+    4: {start: '22:00', end: '06:00', days: '1-7', brightness: 0, colorTemp: 360, color: '', state: false, name:"Nachts von 22 - 6 Uhr AUS" },
     // Zeitplan 5
     5: {start: '06:00', end: '21:30', days: '1-7', brightness: 80, colorTemp: 350, color: '', state: true, name:"Nachts von 22-8 Uhr Helligkeit 80" },
     // Zeitplan 6
     6: {start: '21:30', end: '06:00', days: '1-7', brightness: 10, colorTemp: 350, color: '', state: true, name:"Nachts von 21:30-6 Uhr Helligkeit 10" },
     // Zeitplan 7
-    7: {start: 'sunrise', end: 'sunset', days: '1-7', brightness: 10, colorTemp: 350, color: '', state: true, name:"Nachts von 21:30-6 Uhr Helligkeit 10" },
+    7: {start: 'sunrise+15', end: 'sunset', days: '1-7', brightness: 50, colorTemp: 350, color: '', state: true, name:"Von Sonnenaufgang+15min bis -untergang Helligkeit 50" },
     // Zeitplan 8
-    8: {start: 'dusk', end: 'sunset+30', days: '1-7', brightness: 10, colorTemp: 350, color: '', state: true, name:"Nachts von 21:30-6 Uhr Helligkeit 10" },
+    8: {start: 'sunset', end: 'sunrise+30', days: '1-7', brightness: 10, colorTemp: 350, color: '', state: true, name:"Von Sonnenuntergang bis -aufgang Helligkeit 10" },
 };
 
 // Astrozeiten

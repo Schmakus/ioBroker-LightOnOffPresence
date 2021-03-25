@@ -138,6 +138,7 @@ Es können beliebig viele Zeitpläne erstellt werden. Für jeden Zeitplan die er
 - **state**: true/false = Ein/Aus (Sofern der Datenpunkt **pathControll** der Gruppe des Typs **boolean** entspricht)
 - **name**: Freier Text zur einfacheren Unterscheidung. Keine Funktion innerhalb des Scripts, nur beim logging
 
+### Astrozeiten
 * "sunrise": sunrise (top edge of the sun appears on the horizon)
 * "sunriseEnd": sunrise ends (bottom edge of the sun touches the horizon)
 * "goldenHourEnd": morning golden hour (soft light, best time for photography) ends

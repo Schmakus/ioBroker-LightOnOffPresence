@@ -6,6 +6,8 @@
 # ioBroker.LightOnOffPresence (Version 0.1.1)
 Dieses Script ermöglicht es, eure Lampen über beliebig viele Bewegungsmelder (BWM, beliebig viele Taster und über vorhandene Datenpunkte zu Schalten und zu Dimmen.
 
+# Aktuell keine Weiterentwicklung!!#
+
 ## Information
 Das Script ist aktuell auf Homematic Taster und x-beliebige BWM ausgelegt und getestet.Es befindet sich noch im Beta Status und kann fehler enthalten. Bei Fehlfunktionen einfach ein Issue aufmachen.
 
